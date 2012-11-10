@@ -26,3 +26,6 @@ GPATH
 GRTAGS
 GSYMS
 GTAGS
+src/irena
+src/tags
+.DS_Store
