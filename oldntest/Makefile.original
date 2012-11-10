@@ -1,0 +1,53 @@
+# 
+#
+CC=g++
+CFLAGS=-g -Wall
+NAME=irena
+LISTENER_NAME=$(NAME)d
+SCRIPTCONTAINER_NAME=$(LISTENER_NAME)-cgi
+CONFIG_DIR=./ht-serv
+
+all: $(LISTENER_NAME)
+
+erro.o: erro.hh erro.cc
+	$(CC) $(CFLAGS) -DAPPLICATION_NAME=\"$(NAME)\" -c erro.cc -oerro.o
+
+inet.o: inet.cc inet.hh
+	$(CC) $(CFLAGS) -c inet.cc -oinet.o
+
+inet-test: inet.cc inet.hh erro.o cgicc-compat.o
+	$(CC) $(CFLAGS) erro.o cgicc-compat.o inet.cc -lcgicc -oinet-test
+
+confcache.o: confcache.cc confcache.hh
+	$(CC) $(CFLAGS) -c confcache.cc -oconfcache.o
+
+config.o: config.cc config.hh
+	$(CC) $(CFLAGS) -DCONFIG_DIR=\"$(CONFIG_DIR)\" -c config.cc -oconfig.o
+
+document.o: document.cc document.hh documents.cc
+	$(CC) $(CFLAGS) -DAPPLICATION_NAME=\"$(NAME)\" -c document.cc -odocument.o
+
+cgicc-compat.o: cgicc-compat.cc cgicc-compat.hh
+	$(CC) $(FLAGS) -c cgicc-compat.cc -ocgicc-compat.o
+
+serv.o:	serv.cc serv.hh version.hh
+	$(CC) $(CFLAGS) -DAPPLICATION_NAME=\"$(NAME)\" -c serv.cc -oserv.o
+
+#documents.o: document.hh document.cc documents.cc documents.hh
+#	$(CC) $(CFLAGS) -c documents.cc -odocuments.o
+
+$(LISTENER_NAME): inet.o erro.o confcache.o config.o serv.o document.o \
+		  server.cc server.hh version.hh
+	$(CC) $(CFLAGS) confcache.o config.o inet.o serv.o erro.o document.o \
+			server.cc -o $(LISTENER_NAME)
+#strip $(LISTENER_NAME)
+
+clean:
+	rm -f *.o
+	rm -f *~
+	rm -f $(LISTENER_NAME)
+	rm -f $(SCRIPTCONTAINER_NAME)
+	rm -f inet-test
+	rm -f TAGS
+	ctags *.{cc,hh}
+	etags *.{cc,hh}

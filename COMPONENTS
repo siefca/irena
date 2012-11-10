@@ -1,0 +1,19 @@
+
+/**********************************************************/
+
+A component is a parsing function which may
+be called by its name from within the HTML page
+parsed by server.
+
+New component can be added to code
+statically - recompilation is necessary.
+
+component's attributes:
+
+    - unique name (up to 32 characters long)
+    - number of parameters
+    - parameter types (string or integer)
+
+
+/*********************************************************/
+

@@ -1,0 +1,14 @@
+A document is a CGI routine accessible by its DOC_ID.
+Document to be visible should be registered in server.
+
+
+
+
+	DOCUMENTS' MANAGER (ROOT DOCUMENT)    -----> selecting object ----------> calling object's parsing routines
+		    
+		    /|\										 |
+		     |										 |
+		     | POST or GET method							\|/
+
+	client's request DOC_ID=[integer]						      response
+

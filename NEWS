@@ -1,0 +1,9 @@
+0.1.6		added automake/autoconf support
+0.1.5		code reorganization (removed global/static document's map)
+0.1.4		document handlers and server class ready
+0.1.3		document class ready
+0.1.2		config and confcache ready
+0.1.1		erro class ready
+0.0.4		inet_server, inet_client ready
+0.0.2		inet_socket ready
+0.0.1		initial release

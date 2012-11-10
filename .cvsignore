@@ -1,0 +1,7 @@
+Makefile
+Makefile.in
+*~
+*.bak
+.deps
+*.o
+stamp-h*
